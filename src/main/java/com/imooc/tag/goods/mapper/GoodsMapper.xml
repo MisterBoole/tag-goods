@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.tag.goods.mapper.GoodsMapper">
+
+    <resultMap id="BaseResultMap" type="com.imooc.tag.goods.entity.GoodsEntity">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="creator" property="creator"/>
+        <result column="modifier" property="modifier"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+    <select id="queryGoodsList" resultMap="BaseResultMap">
+        select * from goods
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and `name` like concat('%',#{name}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryGoodsById" resultMap="BaseResultMap">
+        select *
+        from goods
+        where id=#{id}
+    </select>
+
+    <insert id="insert"
+            parameterType="com.imooc.tag.goods.entity.GoodsEntity"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into goods (
+        <trim suffixOverrides=",">
+            `name`,
+            price,
+            description,
+            img,
+            creator,
+            modifier,
+            create_time,
+            modify_time,
+        </trim>
+        )
+        values
+        (
+        <trim suffixOverrides=",">
+            #{name},
+            #{price},
+            #{description},
+            #{img},
+            #{creator},
+            #{modifier},
+            #{createTime},
+            #{modifyTime},
+        </trim>
+        )
+    </insert>
+
+    <update id="update"
+            parameterType="com.imooc.tag.goods.entity.GoodsEntity">
+        update goods
+        <set>
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="img != null">
+                img = #{img},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        delete from goods where id=#{id}
+    </delete>
+
+</mapper>

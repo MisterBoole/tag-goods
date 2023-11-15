@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/layui/css/layui.css}">
+    <style>
+        #tagList {
+            margin: 20px;
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .tag-box {
+            margin: 10px;
+            min-width: 300px;
+        }
+
+        .tag-text {
+            border: 1px solid;
+            border-radius: 2px;
+            padding: 0 3px;
+            margin-left: 10px;
+        }
+
+        .tag-submit-btn {
+            margin-top: 30px;
+            width: 130px;
+        }
+    </style>
+</head>
+<body>
+<div id="tagList"></div>
+<script type="text/template" id="setTag">
+    <form name="setTag">
+        <input type="hidden" name="goodsId" th:value="*{goodsId}">
+        <input type="hidden" name="tagIdList" th:value="*{tagIdList}">
+        <div class="tag-group">
+            {{#tagList}}
+            <div class="tag-box layui-input-inline">
+                <input type="checkbox" name="tagId" value="{{id}}" class="tag">
+                <span style="color: {{style}};" class="tag-text">{{name}}</span>
+            </div>
+            {{/tagList}}
+        </div>
+        <bottom class="layui-btn tag-submit-btn" onclick="submitSetTag()">打标</bottom>
+    </form>
+</script>
+<!-- mustache 引擎 -->
+<script th:src="@{/js/goods/mustache.js}"></script>
+<!-- jQuery -->
+<script th:src="@{/webjars/jquery/jquery.js}"></script>
+<script>
+    let tagData = {
+        tagList: [],
+    };
+    let getTagData = function () {
+        $.ajax({
+            url: "/tag",
+            type: "GET",
+            success: function (res) {
+                tagData.tagList = res.data;
+
+                // 回显checkbox选中态
+                setTimeout(function () {
+                    if (!document.setTag?.tagIdList?.value) return;
+                    let domValue = JSON.parse(document.setTag.tagIdList.value);
+                    tagData.tagList.forEach((tag, i) => {
+                        if (domValue.includes(tag.id)) {
+                            $('.tag')[i].checked = true;
+                        }
+                    })
+                }, 500);
+
+                // 模板绑定
+                var setTagDom = document.getElementById("setTag").innerHTML;
+                var setTagData = Mustache.render(setTagDom, tagData);
+                var setTagListDom = document.getElementById("tagList");
+                setTagListDom.innerHTML = setTagData;
+            },
+        });
+    };
+
+    // 请求数据
+    getTagData();
+
+    let submitSelectedTagData = function (params) {
+        $.ajax({
+            type: 'POST',
+            url: '/tagGoods',
+            data: JSON.stringify(params),
+            success: function (res) {
+                if (res.code == 0) {
+                    layer.closeAll();
+                    query();
+                } else {
+                    layer.alert(res.msg);
+                }
+            },
+            contentType: 'application/json;charset=utf-8',
+        });
+    };
+
+    function submitSetTag() {
+        let arr = [];
+        document.setTag.tagId.forEach(ele => {
+            if (ele.checked) {
+                arr.push(ele.value)
+            }
+        })
+        let params = {
+            goodsId: document.setTag.goodsId.value,
+            tagIdList: arr,
+        }
+        submitSelectedTagData(params)
+    }
+</script>
+
+</body>
+</html>

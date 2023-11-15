@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.tag.goods.mapper.TagMapper">
+    <resultMap id="BaseResultMap" type="com.imooc.tag.goods.entity.TagEntity">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="style" property="style"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="expire_time" property="expireTime"/>
+        <result column="clean_on_delete" property="cleanOnDelete"/>
+        <result column="clean_on_expire" property="cleanOnExpire"/>
+        <result column="creator" property="creator"/>
+        <result column="modifier" property="modifier"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+    <select id="queryTagList" resultMap="BaseResultMap">
+        select * from tag
+        <where>
+            status = 0
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and `name` like concat('%',#{name}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryTagById" resultMap="BaseResultMap">
+        select *
+        from tag
+        where id=#{id}
+    </select>
+
+    <select id="queryExpireTag" resultMap="BaseResultMap">
+        select *
+        from tag
+        where status = 0 and expire_time &lt; #{date}
+    </select>
+
+
+    <select id="queryTagByIds" resultMap="BaseResultMap">
+        select *
+        from tag
+        where
+        id in
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <insert id="insert"
+            parameterType="com.imooc.tag.goods.entity.TagEntity"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into tag (
+        <trim suffixOverrides=",">
+            `name`,
+            style,
+            description,
+            status,
+            expire_time,
+            clean_on_delete,
+            clean_on_expire,
+            creator,
+            modifier,
+            create_time,
+            modify_time,
+        </trim>
+        )
+        values
+        (
+        <trim suffixOverrides=",">
+            #{name},
+            #{style},
+            #{description},
+            #{status},
+            #{expireTime},
+            #{cleanOnDelete},
+            #{cleanOnExpire},
+            #{creator},
+            #{modifier},
+            #{createTime},
+            #{modifyTime},
+        </trim>
+        )
+    </insert>
+
+    <update id="update"
+            parameterType="com.imooc.tag.goods.entity.TagEntity">
+        update tag
+        <set>
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+            <if test="style != null">
+                style = #{style},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="expireTime != null">
+                expire_time = #{expireTime},
+            </if>
+            <if test="cleanOnDelete != null">
+                clean_on_delete = #{cleanOnDelete},
+            </if>
+            <if test="cleanOnExpire != null">
+                clean_on_expire = #{cleanOnExpire},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

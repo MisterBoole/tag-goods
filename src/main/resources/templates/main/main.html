@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>商品管理系统</title>
+    <link rel="stylesheet" th:href="@{/webjars/layui/css/layui.css}">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo layui-hide-xs layui-bg-black">商品管理系统</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <a href="javascript:;">
+                    <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F64%2F91%2Fcb%2F6491cb60f57cc1676e54dd45ce4c28d7.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1669942248&t=9cc393896378b527a483d632762795db"
+                         class="layui-nav-img">
+                    二十七
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">退出登陆</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+                <a href="javascript:;">
+                    <i class="layui-icon layui-icon-more-vertical"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">商品管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="'javascript:showTab(\'goods/goodsList\',\'商品列表\',1);'">商品列表</a></dd>
+                        <dd><a th:href="'javascript:showTab(\'goods/goodsDetail\',\'商品详情\',2);'">商品详情</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">标签管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="'javascript:showTab(\'tag/tagList\',\'标签列表\',3);'">标签列表</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <div class="layui-tab" lay-filter="menu" lay-allowClose="true">
+            <ul class="layui-tab-title">
+                <li class="layui-this">欢迎页</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">欢迎使用本系统</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        底部固定区域
+    </div>
+</div>
+<script th:src="@{/webjars/layui/layui.js}" charset="utf-8"></script>
+<script th:src="@{/webjars/jquery/jquery.js}" charset="utf-8"></script>
+<script th:src="@{/js/main.js}" charset="utf-8"></script>
+<script>
+    //JS
+    layui.use(['element', 'layer', 'util'], function () {
+        var element = layui.element
+            , layer = layui.layer
+            , util = layui.util
+            , $ = layui.$;
+
+        //头部事件
+        util.event('lay-header-event', {
+            //左侧菜单事件
+            menuLeft: function (othis) {
+                layer.msg('展开左侧菜单的操作', {icon: 0});
+            }
+            , menuRight: function () {
+                layer.open({
+                    type: 1
+                    , content: '<div style="padding: 15px;">这是右侧提示信息</div>'
+                    , area: ['260px', '100%']
+                    , offset: 'rt' //右上角
+                    , anim: 5
+                    , shadeClose: true
+                });
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

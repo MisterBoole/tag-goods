@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/layui/css/layui.css}">
+    <style>
+        #uploadImage {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<form class="layui-form" id="addForm"
+      method="post" th:action="@{'/goods'}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" placeholder="请输入商品名称"
+                   autocomplete="off" class="layui-input" lay-verify="required" maxlength="40">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品价格</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" placeholder="请输入商品价格"
+                   autocomplete="off" class="layui-input" lay-verify="required" maxlength="40">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品图片</label>
+        <input type="file" id="uploadImage" onchange="handleFiles(this.files)" accept="image/*">
+        <div id="previewGoodsImage">
+            <img id="goodsImage" src="" style="width:100px"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品描述</label>
+        <div class="layui-input-block">
+            <input type="text" name="description" placeholder="请输入商品描述"
+                   autocomplete="off" class="layui-input" lay-verify="required" maxlength="40">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="goodsSubmit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

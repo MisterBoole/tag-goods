@@ -20,6 +20,7 @@ target/
 *.ipr
 
 ### NetBeans ###
+/mysql/
 /nbproject/private/
 /nbbuild/
 /dist/

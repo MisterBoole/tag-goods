@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>商品详情页</title>
+
+    <!-- 样式引入 -->
+    <link th:href="@{/css/goods/goodsDetail.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div id="goodsList"></div>
+<script type="text/template" id="goodsDetail">
+    {{#goodsList}}
+    <div class="goods">
+        <img
+                src="{{img}}"
+                class="goods-img"
+        />
+        <div class="goods-price">￥{{price}}</div>
+        <div class="goods-desc two-row-overflow">{{description}}</div>
+        <div class="goods-name one-row-overflow">{{name}}</div>
+        <ul class="goods-tag-group">
+            {{#tagList}}
+            <li class="goods-tag" style="color:{{style}}">{{name}}</li>
+            {{/tagList}}
+        </ul>
+    </div>
+    {{/goodsList}}
+</script>
+
+<!-- mustache 引擎 -->
+<script th:src="@{/js/goods/mustache.js}"></script>
+<!-- jQuery -->
+<script th:src="@{/webjars/jquery/jquery.js}"></script>
+<script th:src="@{/js/goods/goodsDetail.js}"></script>
+</body>
+</html>

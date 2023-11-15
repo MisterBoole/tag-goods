@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/layui/css/layui.css}">
+</head>
+<body>
+<form class="layui-form" id="addForm"
+      method="post" th:action="@{'/tag'}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" placeholder="请输入标签名称"
+                   autocomplete="off" class="layui-input" lay-verify="required" maxlength="40">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签样式</label>
+        <div class="layui-input-block">
+            <input type="color" name="style" placeholder="请输入标签样式" autocomplete="off" lay-verify="required"
+                   maxlength="40">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签描述</label>
+        <div class="layui-input-block">
+            <input type="text" name="description" placeholder="请输入标签描述"
+                   autocomplete="off" class="layui-input" lay-verify="required" maxlength="40">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">过期时间</label>
+        <div class="layui-inline">
+            <input type="text" id="expireTime" name="expireTime" class="layui-input" placeholder="过期日期">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">删除是否清除标记</label>
+        <div class="layui-input-block">
+            <input type="radio" name="cleanOnDelete" value="0" title="是" checked>
+            <input type="radio" name="cleanOnDelete" value="1" title="否">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">过期是否清除标记</label>
+        <div class="layui-input-block">
+            <input type="radio" name="cleanOnExpire" value="0" title="是" checked>
+            <input type="radio" name="cleanOnExpire" value="1" title="否">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="addSubmit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    layui.use('laydate', function () {
+        let layDate = layui.laydate;
+        layDate.render({
+            elem: '#expireTime',
+            type: 'datetime'
+        });
+    });
+</script>
+</body>
+</html>
