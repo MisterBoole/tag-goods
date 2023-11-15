@@ -20,7 +20,7 @@
     <select id="queryTagList" resultMap="BaseResultMap">
         select * from tag
         <where>
-            status = 0
+            status = 1
             <if test="id != null">
                 and id = #{id}
             </if>
