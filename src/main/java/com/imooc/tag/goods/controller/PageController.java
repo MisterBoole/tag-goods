@@ -12,4 +12,14 @@ public class PageController {
         model.addAttribute("name", "xiaoming");
         return "test/test";
     }
+
+    @RequestMapping("/")
+    public String main() {
+        return "main/main";
+    }
+
+    @RequestMapping("/tag/tagList")
+    public String tagList() {
+        return "tag/tagList";
+    }
 }
