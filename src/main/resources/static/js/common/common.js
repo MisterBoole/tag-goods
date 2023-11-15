@@ -37,7 +37,7 @@ function mySubmit(filter, type, func) {
                     layer.closeAll();
                     query();
                 } else {
-                    layer.alert(res.msg);
+                    layer.alert(res.message);
                 }
             }
         })

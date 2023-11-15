@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Data
 public class BaseEntity {
-    private Integer creater;
+    private Integer creator;
 
     private Integer modifier;
 

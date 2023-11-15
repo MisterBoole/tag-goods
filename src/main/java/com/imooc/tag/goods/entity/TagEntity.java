@@ -18,4 +18,8 @@ public class TagEntity extends BaseEntity{
 
     private String expireTime;
 
+    private Integer cleanOnDelete;
+
+    private Integer cleanOnExpire;
+
 }

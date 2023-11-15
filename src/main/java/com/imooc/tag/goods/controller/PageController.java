@@ -22,4 +22,9 @@ public class PageController {
     public String tagList() {
         return "tag/tagList";
     }
+
+    @RequestMapping("/tag/tagAdd")
+    public String tagAdd() {
+        return "tag/tagAdd";
+    }
 }
