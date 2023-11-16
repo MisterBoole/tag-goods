@@ -3,9 +3,9 @@ package com.imooc.tag.goods.controller;
 import com.imooc.tag.goods.common.aspect.annotation.AutoFillDefaultValue;
 import com.imooc.tag.goods.controller.vo.BaseResponse;
 import com.imooc.tag.goods.controller.vo.GoodsVO;
+import com.imooc.tag.goods.entity.BaseEntity;
 import com.imooc.tag.goods.entity.GoodsEntity;
 import com.imooc.tag.goods.service.GoodsService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +49,13 @@ public class GoodsController {
            return BaseResponse.getSuccessResult(BaseResponse.class);
        }
        return BaseResponse.getFailResult(BaseResponse.class);
+   }
+
+   @PutMapping("/goods")
+   public BaseResponse update(@RequestBody GoodsEntity goodsEntity) {
+       BaseResponse successResult = BaseResponse.getSuccessResult(BaseResponse.class);
+       Integer update = goodsService.update(goodsEntity);
+       return successResult;
    }
 
 

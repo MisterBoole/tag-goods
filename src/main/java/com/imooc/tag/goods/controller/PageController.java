@@ -1,7 +1,8 @@
 package com.imooc.tag.goods.controller;
 
-import com.imooc.tag.goods.common.aspect.annotation.AutoFillDefaultValue;
+import com.imooc.tag.goods.entity.GoodsEntity;
 import com.imooc.tag.goods.entity.TagEntity;
+import com.imooc.tag.goods.service.GoodsService;
 import com.imooc.tag.goods.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ public class PageController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private GoodsService goodsService;
 
     @RequestMapping("/test")
     public String test(Model model) {
@@ -53,5 +57,12 @@ public class PageController {
     @RequestMapping("/goods/goodsAdd")
     public String goodsAdd() {
         return "goods/goodsAdd";
+    }
+
+    @RequestMapping("/goods/goodsUpdate/{id}")
+    public String goodsUpdate(@PathVariable long id, Model model) {
+        GoodsEntity goodsEntity = goodsService.queryGoodsById(id);
+        model.addAttribute("goods", goodsEntity);
+        return "goods/goodsUpdate";
     }
 }
