@@ -37,4 +37,9 @@ public class GoodsService {
    public GoodsEntity queryGoodsById(Long id) {
        return goodsMapper.queryGoodsById(id);
    }
+
+   public Integer delete(Long id) {
+       Integer result = goodsMapper.delete(id);
+       return result;
+   }
 }

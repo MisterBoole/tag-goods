@@ -1,12 +1,13 @@
 package com.imooc.tag.goods.controller;
 
+import com.imooc.tag.goods.common.aspect.annotation.AutoFillDefaultValue;
 import com.imooc.tag.goods.controller.vo.BaseResponse;
 import com.imooc.tag.goods.controller.vo.GoodsVO;
 import com.imooc.tag.goods.entity.GoodsEntity;
 import com.imooc.tag.goods.service.GoodsService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +32,23 @@ public class GoodsController {
        List<GoodsVO> goodsVOS = goodsEntitys.stream().map(GoodsVO::transferEntityToVO).collect(Collectors.toList());
        successResult.setData(goodsVOS);
        return successResult;
+   }
+
+   @AutoFillDefaultValue
+   @PostMapping("/goods")
+   public BaseResponse insert(@RequestBody GoodsEntity goodsEntity) {
+       BaseResponse baseResponse = BaseResponse.getSuccessResult(BaseResponse.class);
+       Integer result = goodsService.inster(goodsEntity);
+       return baseResponse;
+   }
+
+   @DeleteMapping("/goods/{id}")
+   public BaseResponse delete(@PathVariable Long id) {
+       Integer result = goodsService.delete(id);
+       if(result > 0) {
+           return BaseResponse.getSuccessResult(BaseResponse.class);
+       }
+       return BaseResponse.getFailResult(BaseResponse.class);
    }
 
 

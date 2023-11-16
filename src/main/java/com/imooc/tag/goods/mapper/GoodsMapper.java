@@ -16,5 +16,5 @@ public interface GoodsMapper {
 
     GoodsEntity queryGoodsById (@Param("id") Long id);
 
-
+    int delete(long id);
 }
