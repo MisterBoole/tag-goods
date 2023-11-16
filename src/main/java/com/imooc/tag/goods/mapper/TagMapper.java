@@ -24,7 +24,4 @@ public interface TagMapper {
   Integer insert(TagEntity tagEntity);
 
   Integer update(TagEntity tagEntity);
-
-
-
 }

@@ -25,6 +25,7 @@ public class PageController {
         return "main/main";
     }
 
+    // 标签相关
     @RequestMapping("/tag/tagList")
     public String tagList() {
         return "tag/tagList";
@@ -40,5 +41,11 @@ public class PageController {
         TagEntity tagEntity = tagService.queryTagById(id);
         model.addAttribute("tag", tagEntity);
         return "tag/tagUpdate";
+    }
+
+    // 商品相关
+    @RequestMapping("/goods/goodsList")
+    public String goodsList() {
+        return "goods/goodsList";
     }
 }

@@ -10,13 +10,14 @@ import lombok.Data;
  * @date: 2023/11/15 13:52
  * @version: 1.0
  */
+
 @Data
 public class GoodsEntity extends BaseEntity{
     private Long id;
 
     private String name;
 
-    private Integer price;
+    private Double price;
 
     private String img;
 
