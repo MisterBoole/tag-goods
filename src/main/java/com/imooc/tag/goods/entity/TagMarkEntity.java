@@ -14,8 +14,8 @@ import lombok.Data;
 public class TagMarkEntity extends BaseEntity{
     private Long id;
 
-    private String tagId;
+    private Long tagId;
 
-    private String goodsId;
+    private Long goodsId;
 
 }

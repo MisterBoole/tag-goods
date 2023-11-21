@@ -63,6 +63,8 @@
             success: function (res) {
                 tagData.tagList = res.data;
 
+                console.log('res>>>>', res)
+
                 // 回显checkbox选中态
                 setTimeout(function () {
                     if (!document.setTag?.tagIdList?.value) return;
@@ -105,11 +107,18 @@
 
     function submitSetTag() {
         let arr = [];
-        document.setTag.tagId.forEach(ele => {
-            if (ele.checked) {
-                arr.push(ele.value)
-            }
-        })
+        console.log('document', document.setTag.tagId)
+        const tagIds = document.setTag.tagId;
+        if(!tagIds) { return }
+        if(Array.isArray(tagIds)) {
+            tagIds.forEach(ele => {
+                if (ele.checked) {
+                    arr.push(ele.value)
+                }
+            })
+        } else {
+            arr.push(document.setTag.tagId.value)
+        }
         let params = {
             goodsId: document.setTag.goodsId.value,
             tagIdList: arr,

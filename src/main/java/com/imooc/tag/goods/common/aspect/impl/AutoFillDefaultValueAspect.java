@@ -1,5 +1,6 @@
 package com.imooc.tag.goods.common.aspect.impl;
 
+import com.imooc.tag.goods.controller.param.BaseParam;
 import com.imooc.tag.goods.entity.BaseEntity;
 import com.imooc.tag.goods.service.TagService;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,14 @@ public class AutoFillDefaultValueAspect {
                         baseEntity.setModifier(0);
                         baseEntity.setCreateTime(new Date());
                         baseEntity.setModifyTime(new Date());
+                    }
+
+                    if(arg instanceof BaseParam) {
+                        BaseParam baseParam = (BaseParam) arg;
+                        baseParam.setCreator(0);
+                        baseParam.setModifier(0);
+                        baseParam.setCreateTime(new Date());
+                        baseParam.setModifyTime(new Date());
                     }
                 }
 
