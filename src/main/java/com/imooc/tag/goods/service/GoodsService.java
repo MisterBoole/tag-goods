@@ -1,5 +1,6 @@
 package com.imooc.tag.goods.service;
 
+import com.imooc.tag.goods.common.constant.CommonConstant;
 import com.imooc.tag.goods.entity.GoodsEntity;
 import com.imooc.tag.goods.entity.TagEntity;
 import com.imooc.tag.goods.entity.TagMarkEntity;
@@ -51,8 +52,20 @@ public class GoodsService {
 
    }
 
+   private void insertTagMark(GoodsEntity goodsEntity) {
+       TagMarkEntity tagMarkEntity = new TagMarkEntity();
+       tagMarkEntity.setGoodsId(goodsEntity.getId());
+       tagMarkEntity.setTagId(CommonConstant.NEW_SHOP_TAG_ID);
+       tagMarkEntity.setCreator(goodsEntity.getCreator());
+       tagMarkEntity.setModifier(goodsEntity.getModifier());
+       tagMarkEntity.setCreateTime(goodsEntity.getCreateTime());
+       tagMarkEntity.setModifyTime(goodsEntity.getModifyTime());
+       tagMarkService.insert(tagMarkEntity);
+   }
+
    public Integer inster(GoodsEntity goodsEntity) {
        Integer result = goodsMapper.insert(goodsEntity);
+       insertTagMark(goodsEntity);
        return result;
    }
 
