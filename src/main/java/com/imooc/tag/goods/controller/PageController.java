@@ -74,6 +74,11 @@ public class PageController {
         return "goods/goodsUpdate";
     }
 
+    @RequestMapping("/goods/goodsDetail")
+    public String goodsDetail() {
+        return "goods/goodsDetail";
+    }
+
 
     // 打标相关
     @RequestMapping("/goods/goodsTag/{id}")
