@@ -31,4 +31,8 @@ public class TagMarkService {
    public Integer deleteByGoodsId(Long goodsId) {
        return tagMarkMapper.deleteByGoodsId(goodsId);
    }
+
+    public Integer deleteByTagId(Long tagId) {
+        return tagMarkMapper.deleteByTagId(tagId);
+    }
 }

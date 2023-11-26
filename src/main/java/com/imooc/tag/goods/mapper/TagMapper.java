@@ -4,6 +4,7 @@ import com.imooc.tag.goods.entity.TagEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,4 +27,6 @@ public interface TagMapper {
   Integer update(TagEntity tagEntity);
 
   List<TagEntity> queryTagByIds(@Param("ids") List<Long> ids);
+
+  List<TagEntity> queryExpireTag(@Param("date") Date date);
 }

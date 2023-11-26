@@ -13,4 +13,5 @@ public interface TagMarkMapper {
 
     Integer deleteByGoodsId(Long goodsId);
 
+    Integer deleteByTagId(Long tagId);
 }

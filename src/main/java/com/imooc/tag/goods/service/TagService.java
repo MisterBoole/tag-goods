@@ -6,6 +6,7 @@ import com.imooc.tag.goods.mapper.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,5 +35,9 @@ public class TagService {
 
     public List<TagEntity> queryTagByIds(List<Long> tagIds) {
       return tagMapper.queryTagByIds(tagIds);
+    }
+
+    public List<TagEntity> queryExpiredTag(Date currentDate) {
+      return tagMapper.queryExpireTag(currentDate);
     }
 }
