@@ -2,6 +2,8 @@ package com.imooc.tag.goods.entity;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @projectName: tag-goods
  * @package: com.imooc.tag.goods.entity
@@ -22,5 +24,7 @@ public class GoodsEntity extends BaseEntity{
     private String img;
 
     private String description;
+
+    private List<TagEntity> tagEntityList;
 
 }

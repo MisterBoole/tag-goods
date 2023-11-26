@@ -24,4 +24,6 @@ public interface TagMapper {
   Integer insert(TagEntity tagEntity);
 
   Integer update(TagEntity tagEntity);
+
+  List<TagEntity> queryTagByIds(@Param("ids") List<Long> ids);
 }

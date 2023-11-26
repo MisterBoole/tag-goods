@@ -1,6 +1,7 @@
 package com.imooc.tag.goods.service;
 
 import com.imooc.tag.goods.entity.TagEntity;
+import com.imooc.tag.goods.entity.TagMarkEntity;
 import com.imooc.tag.goods.mapper.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +30,9 @@ public class TagService {
   public TagEntity queryTagById(Long id) {
       return tagMapper.queryTagById(id);
   }
+
+
+    public List<TagEntity> queryTagByIds(List<Long> tagIds) {
+      return tagMapper.queryTagByIds(tagIds);
+    }
 }

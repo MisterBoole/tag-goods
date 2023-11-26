@@ -1,11 +1,17 @@
 package com.imooc.tag.goods.service;
 
 import com.imooc.tag.goods.entity.GoodsEntity;
+import com.imooc.tag.goods.entity.TagEntity;
+import com.imooc.tag.goods.entity.TagMarkEntity;
 import com.imooc.tag.goods.mapper.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @projectName: tag-goods
@@ -20,8 +26,29 @@ public class GoodsService {
    @Autowired
     private GoodsMapper goodsMapper;
 
+   @Autowired
+   private TagMarkService tagMarkService;
+
+   @Autowired
+   private TagService tagService;
+
    public List<GoodsEntity> queryGoodsList(Long id, String name) {
-       return goodsMapper.queryGoodsList(id, name);
+       List<GoodsEntity> goodsEntities = goodsMapper.queryGoodsList(id, name);
+       if(CollectionUtils.isEmpty(goodsEntities)) {
+           return new ArrayList<>();
+       }
+
+       goodsEntities.forEach(goodsEntity -> {
+           List<TagMarkEntity> tagMarkEntities = tagMarkService.queryTagMarkByGoods((goodsEntity.getId()));
+           if(!CollectionUtils.isEmpty(tagMarkEntities)) {
+               List<Long> tagIdList = tagMarkEntities.stream().map(TagMarkEntity::getTagId).collect(Collectors.toList());
+               List<TagEntity> tagEntities = tagService.queryTagByIds(tagIdList);
+               goodsEntity.setTagEntityList(tagEntities);
+           }
+       });
+
+       return goodsEntities;
+
    }
 
    public Integer inster(GoodsEntity goodsEntity) {

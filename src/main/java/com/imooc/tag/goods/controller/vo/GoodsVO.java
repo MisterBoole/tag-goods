@@ -1,8 +1,11 @@
 package com.imooc.tag.goods.controller.vo;
 
 import com.imooc.tag.goods.entity.GoodsEntity;
-import com.imooc.tag.goods.entity.TagEntity;
 import lombok.Data;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @projectName: tag-goods
@@ -24,6 +27,8 @@ public class GoodsVO extends BaseVO{
 
     private String description;
 
+    private List<TagVO> tagList;
+
     public static GoodsVO transferEntityToVO(GoodsEntity goodsEntity) {
         GoodsVO goodsVO = new GoodsVO();
         goodsVO.setId(goodsEntity.getId());
@@ -35,6 +40,9 @@ public class GoodsVO extends BaseVO{
         goodsVO.setModifier(goodsEntity.getModifier());
         goodsVO.setCreateTime(goodsEntity.getCreateTime());
         goodsVO.setModifyTime(goodsEntity.getModifyTime());
+        if(!CollectionUtils.isEmpty(goodsEntity.getTagEntityList())) {
+           goodsVO.setTagList(goodsEntity.getTagEntityList().stream().map(TagVO::transferEntityToVO).collect(Collectors.toList()));
+        }
         return goodsVO;
     }
 
