@@ -62,9 +62,6 @@
             type: "GET",
             success: function (res) {
                 tagData.tagList = res.data;
-
-                console.log('res>>>>', res)
-
                 // 回显checkbox选中态
                 setTimeout(function () {
                     if (!document.setTag?.tagIdList?.value) return;
@@ -107,10 +104,9 @@
 
     function submitSetTag() {
         let arr = [];
-        console.log('document', document.setTag.tagId)
         const tagIds = document.setTag.tagId;
         if(!tagIds) { return }
-        if(Array.isArray(tagIds)) {
+        if(tagIds.length >= 2) {
             tagIds.forEach(ele => {
                 if (ele.checked) {
                     arr.push(ele.value)
